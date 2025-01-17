@@ -1,0 +1,91 @@
+{
+    "common": {
+      "menu": "मेन्यू",
+      "cart": "कार्ट",
+      "orders": "ऑर्डर",
+      "login": "लॉगिन",
+      "register": "रजिस्टर",
+      "logout": "लॉगआउट",
+      "admin": "एडमिन",
+      "loading": "लोड हो रहा है...",
+      "error": "कुछ गलत हो गया",
+      "success": "सफल",
+      "cancel": "रद्द करें",
+      "save": "सहेजें",
+      "delete": "हटाएं",
+      "edit": "संपादित करें",
+      "close": "बंद करें"
+    },
+    "auth": {
+      "loginTitle": "अपने खाते में लॉगिन करें",
+      "registerTitle": "नया खाता बनाएं",
+      "email": "ईमेल",
+      "password": "पासवर्ड",
+      "confirmPassword": "पासवर्ड की पुष्टि करें",
+      "name": "नाम",
+      "loginButton": "लॉगिन करें",
+      "registerButton": "रजिस्टर करें",
+      "forgotPassword": "पासवर्ड भूल गए?",
+      "alreadyHaveAccount": "पहले से खाता है?",
+      "dontHaveAccount": "खाता नहीं है?",
+      "loginSuccess": "लॉगिन सफल",
+      "registerSuccess": "रजिस्ट्रेशन सफल",
+      "loginError": "लॉगिन विफल",
+      "registerError": "रजिस्ट्रेशन विफल",
+      "passwordMismatch": "पासवर्ड मेल नहीं खाते"
+    },
+    "orders": {
+      "title": "आपके ऑर्डर",
+      "noOrders": "कोई ऑर्डर नहीं मिला",
+      "orderNumber": "ऑर्डर #{{number}}",
+      "orderDate": "ऑर्डर की तारीख",
+      "orderStatus": "स्थिति",
+      "orderTotal": "कुल",
+      "orderItems": "आइटम",
+      "viewDetails": "विवरण देखें",
+      "status": {
+        "pending": "लंबित",
+        "processing": "प्रोसेसिंग",
+        "completed": "पूर्ण",
+        "cancelled": "रद्द",
+        "delivered": "डिलीवर्ड"
+      }
+    },
+    "orderDetails": {
+      "title": "ऑर्डर विवरण",
+      "orderInfo": "ऑर्डर जानकारी",
+      "items": "ऑर्डर आइटम",
+      "itemQuantity": "मात्रा: {{quantity}}",
+      "itemPrice": "कीमत: ₹{{price}}",
+      "totalAmount": "कुल राशि",
+      "orderDate": "ऑर्डर की तारीख: {{date}}",
+      "orderStatus": "ऑर्डर स्थिति",
+      "backToOrders": "ऑर्डर पर वापस जाएं"
+    },
+    "cart": {
+      "title": "आपका कार्ट",
+      "empty": "आपका कार्ट खाली है",
+      "subtotal": "कुल राशि",
+      "discountedPrice": "छूट के बाद कीमत",
+      "checkout": "भुगतान करें",
+      "total": "कुल: ₹{{amount}}",
+      "applyCoupon": "कूपन लागू करें",
+      "enterCoupon": "कूपन कोड दर्ज करें",
+      "availableCoupons": "उपलब्ध कूपन",
+      "removeItem": "आइटम हटाएं",
+      "updateQuantity": "मात्रा अपडेट करें"
+    },
+    "payment": {
+      "title": "भुगतान विवरण",
+      "cardNumber": "कार्ड नंबर",
+      "expiryDate": "समाप्ति तिथि",
+      "cvv": "सीवीवी",
+      "payNow": "अभी भुगतान करें",
+      "processing": "भुगतान प्रोसेस हो रहा है...",
+      "amount": "कुल राशि: ₹{{amount}}",
+      "testCard": "टेस्ट कार्ड: सफलता के लिए सम संख्या और विफलता के लिए विषम संख्या वाला 16 अंकों का नंबर उपयोग करें",
+      "success": "भुगतान सफल",
+      "error": "भुगतान विफल",
+      "orderPlaced": "ऑर्डर सफलतापूर्वक प्लेस किया गया!"
+    }
+  }

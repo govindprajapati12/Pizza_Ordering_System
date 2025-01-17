@@ -1,0 +1,91 @@
+{
+  "common": {
+    "menu": "Menu",
+    "cart": "Cart",
+    "orders": "Orders",
+    "login": "Login",
+    "register": "Register",
+    "logout": "Logout",
+    "admin": "Admin",
+    "loading": "Loading...",
+    "error": "An error occurred",
+    "success": "Success",
+    "cancel": "Cancel",
+    "save": "Save",
+    "delete": "Delete",
+    "edit": "Edit",
+    "close": "Close"
+  },
+  "auth": {
+    "loginTitle": "Login to Your Account",
+    "registerTitle": "Create New Account",
+    "email": "Email",
+    "password": "Password",
+    "confirmPassword": "Confirm Password",
+    "name": "Name",
+    "loginButton": "Login",
+    "registerButton": "Register",
+    "forgotPassword": "Forgot Password?",
+    "alreadyHaveAccount": "Already have an account?",
+    "dontHaveAccount": "Don't have an account?",
+    "loginSuccess": "Login successful",
+    "registerSuccess": "Registration successful",
+    "loginError": "Login failed",
+    "registerError": "Registration failed",
+    "passwordMismatch": "Passwords do not match"
+  },
+  "orders": {
+    "title": "Your Orders",
+    "noOrders": "No orders found",
+    "orderNumber": "Order #{{number}}",
+    "orderDate": "Order Date",
+    "orderStatus": "Status",
+    "orderTotal": "Total",
+    "orderItems": "Items",
+    "viewDetails": "View Details",
+    "status": {
+      "pending": "Pending",
+      "processing": "Processing",
+      "completed": "Completed",
+      "cancelled": "Cancelled",
+      "delivered": "Delivered"
+    }
+  },
+  "orderDetails": {
+    "title": "Order Details",
+    "orderInfo": "Order Information",
+    "items": "Order Items",
+    "itemQuantity": "Quantity: {{quantity}}",
+    "itemPrice": "Price: ₹{{price}}",
+    "totalAmount": "Total Amount",
+    "orderDate": "Placed on: {{date}}",
+    "orderStatus": "Order Status",
+    "backToOrders": "Back to Orders"
+  },
+  "cart": {
+    "title": "Your Cart",
+    "empty": "Your cart is empty",
+    "subtotal": "Subtotal",
+    "discountedPrice": "Discounted Price",
+    "checkout": "Proceed to Payment",
+    "total": "Total: ₹{{amount}}",
+    "applyCoupon": "Apply Coupon",
+    "enterCoupon": "Enter coupon code",
+    "availableCoupons": "Available Coupons",
+    "removeItem": "Remove item",
+    "updateQuantity": "Update quantity"
+  },
+  "payment": {
+    "title": "Payment Details",
+    "cardNumber": "Card Number",
+    "expiryDate": "Expiry Date",
+    "cvv": "CVV",
+    "payNow": "Pay Now",
+    "processing": "Processing Payment...",
+    "amount": "Total Amount: ₹{{amount}}",
+    "testCard": "Test Card: Use any 16-digit number ending with an even number for success, odd number for failure",
+    "success": "Payment successful",
+    "error": "Payment failed",
+    "orderPlaced": "Order placed successfully!"
+  }
+}
