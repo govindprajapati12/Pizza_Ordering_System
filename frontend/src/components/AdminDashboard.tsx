@@ -171,20 +171,24 @@ function AdminDashboard() {
       if (newPizza.image) {
         formData.append('file', newPizza.image);
       }
-
+  
       const response = await fetchWithAuth('http://localhost:8000/api/pizzas', {
         method: 'POST',
         body: formData,
       });
-      const data = await response.json();
-      setPizzas([...pizzas, data.data]);
-      setNewPizza({ name: '', description: '', price: '', image: null });
+      const result = await response.json();
+      
+      if (result.data) {
+        setPizzas(prevPizzas => prevPizzas ? [...prevPizzas, result.data] : [result.data]);
+        setNewPizza({ name: '', description: '', price: '', image: null });
+      } else {
+        setError('Failed to create pizza: No data received');
+      }
     } catch (err) {
       console.error('Error creating pizza:', err);
       setError('Failed to create pizza');
     }
   };
-
   const handleCreateTopping = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
@@ -568,28 +572,43 @@ function AdminDashboard() {
               </button>
             </form>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {pizzas.map((pizza) => (
-                <div key={pizza.id} className="border rounded-lg overflow-hidden">
-                  <img
-                    src={`http://localhost:8000${pizza.image}`}
-                    alt={pizza.name}
-                    className="w-full h-48 object-cover"
-                  />
-                  <div className="p-4">
-                    <h3 className="font-semibold">{pizza.name}</h3>
-                    <p className="text-gray-600">{pizza.description}</p>
-                    <p className="text-red-600 font-medium">₹{pizza.price}</p>
-                    <button
-                      onClick={() => handleDeletePizza(pizza.id)}
-                      className="mt-2 text-red-600 hover:text-red-800"
-                    >
-                      <Trash2 size={20} />
-                    </button>
+            {loading ? (
+              <div className="flex justify-center items-center h-64">
+                <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-red-600"></div>
+              </div>
+            ) : error ? (
+              <div className="text-center py-8">
+                <p className="text-red-600">{error}</p>
+              </div>
+            ) : !pizzas || pizzas.length === 0 ? (
+              <div className="text-center py-8">
+                <Pizza size={48} className="mx-auto text-gray-400 mb-4" />
+                <p className="text-gray-500">No pizzas available. Add your first pizza above!</p>
+              </div>
+            ) : (
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                {pizzas.map((pizza) => (
+                  <div key={pizza.id} className="border rounded-lg overflow-hidden">
+                    <img
+                      src={`http://localhost:8000${pizza.image}`}
+                      alt={pizza.name}
+                      className="w-full h-48 object-cover"
+                    />
+                    <div className="p-4">
+                      <h3 className="font-semibold">{pizza.name}</h3>
+                      <p className="text-gray-600">{pizza.description}</p>
+                      <p className="text-red-600 font-medium">₹{pizza.price}</p>
+                      <button
+                        onClick={() => handleDeletePizza(pizza.id)}
+                        className="mt-2 text-red-600 hover:text-red-800"
+                      >
+                        <Trash2 size={20} />
+                      </button>
+                    </div>
                   </div>
-                </div>
-              ))}
-            </div>
+                ))}
+              </div>
+            )}
           </div>
         )}
 

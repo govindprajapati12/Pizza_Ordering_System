@@ -4,7 +4,7 @@ from sqlalchemy.orm import Session
 from passlib.context import CryptContext
 from jose import jwt, JWTError
 from utils.jwt import ACCESS_TOKEN_EXPIRE_MINUTES, ALGORITHM, SECRET_KEY, create_access_token, create_refresh_token, verify_token
-from models.models import User
+from models.models import Coupon, CouponUsage, User
 from schemas.auth import LoginRequest, LoginResponse, RegistrationRequest
 
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
@@ -17,6 +17,7 @@ async def verify_password(plain_password: str, hashed_password: str) -> bool:
 
 async def register_user(user_data: RegistrationRequest, db: Session):
     try:
+        # Check if the email is already registered
         if db.query(User).filter(User.email == user_data.email).first():
             raise HTTPException(
                 status_code=status.HTTP_400_BAD_REQUEST,
@@ -25,6 +26,8 @@ async def register_user(user_data: RegistrationRequest, db: Session):
     except Exception as e:
         print(str(e))
         raise e
+    
+    # Hash the password
     hashed_password = await hash_password(user_data.password)
     user = User(
         name=user_data.name,
@@ -32,9 +35,21 @@ async def register_user(user_data: RegistrationRequest, db: Session):
         password=hashed_password,
         role="user",
     )
+    
+    # Add the new user to the database
     db.add(user)
     db.commit()
     db.refresh(user)
+    
+    # Fetch all existing coupons
+    existing_coupons = db.query(Coupon).all()
+
+    # Assign each coupon to the new user
+    for coupon in existing_coupons:
+        coupon_usage = CouponUsage(user_id=user.id, coupon_id=coupon.id)
+        db.add(coupon_usage)
+    
+    db.commit()
     return user
 
 async def authenticate_user(login_data, db: Session):

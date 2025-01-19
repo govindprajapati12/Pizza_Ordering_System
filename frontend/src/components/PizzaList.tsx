@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Plus } from 'lucide-react';
+import { Pizza, Plus } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 
 interface Pizza {
@@ -143,34 +143,49 @@ function PizzaList() {
 
   return (
     <div>
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {pizzas.map((pizza) => (
-          <div key={pizza.id} className="bg-white rounded-lg shadow-md overflow-hidden">
-            <img
-              src={`http://localhost:8000${pizza.image}`}
-              alt={pizza.name}
-              className="w-full h-48 object-cover"
-            />
-            <div className="p-4">
-              <h3 className="text-xl font-bold">{pizza.name}</h3>
-              <p className="text-gray-600 mt-2">{pizza.description}</p>
-              <div className="mt-4 flex justify-between items-center">
-                <span className="text-xl font-bold text-red-600">₹{pizza.price.toFixed(2)}</span>
-                <button
-                  onClick={() => {
-                    setSelectedPizza(pizza);
-                    setShowToppingModal(true);
-                  }}
-                  className="bg-red-600 text-white px-4 py-2 rounded-lg hover:bg-red-700 flex items-center space-x-1"
-                >
-                  <Plus size={20} />
-                  <span>Add to Cart</span>
-                </button>
+      {loading ? (
+        <div className="flex justify-center items-center h-64">
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-red-600"></div>
+        </div>
+      ) : error ? (
+        <div className="text-center py-8">
+          <p className="text-red-600">{error}</p>
+        </div>
+      ) : !pizzas || pizzas.length === 0 ? (
+        <div className="text-center py-8">
+          <Pizza size={48} className="mx-auto text-gray-400 mb-4" />
+          <p className="text-gray-500">No pizzas available at the moment.</p>
+        </div>
+      ) : (
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {pizzas.map((pizza) => (
+            <div key={pizza.id} className="bg-white rounded-lg shadow-md overflow-hidden">
+              <img
+                src={`http://localhost:8000${pizza.image}`}
+                alt={pizza.name}
+                className="w-full h-48 object-cover"
+              />
+              <div className="p-4">
+                <h3 className="text-xl font-bold">{pizza.name}</h3>
+                <p className="text-gray-600 mt-2">{pizza.description}</p>
+                <div className="mt-4 flex justify-between items-center">
+                  <span className="text-xl font-bold text-red-600">₹{pizza.price.toFixed(2)}</span>
+                  <button
+                    onClick={() => {
+                      setSelectedPizza(pizza);
+                      setShowToppingModal(true);
+                    }}
+                    className="bg-red-600 text-white px-4 py-2 rounded-lg hover:bg-red-700 flex items-center space-x-1"
+                  >
+                    <Plus size={20} />
+                    <span>Add to Cart</span>
+                  </button>
+                </div>
               </div>
             </div>
-          </div>
-        ))}
-      </div>
+          ))}
+        </div>
+      )}
 
       {/* Toppings Modal */}
       {showToppingModal && selectedPizza && (

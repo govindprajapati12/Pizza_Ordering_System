@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Trash2, Tag, Plus, Minus, Package } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import PaymentModal from './PaymentModal';
+import ProcessingOrderModal from './ProcessingOrderModal';
 
 // Interfaces for type safety
 interface CartTopping {
@@ -217,8 +218,13 @@ const Cart: React.FC<CartProps> = ({ accessToken }) => {
   const handleCheckout = () => {
     setShowPaymentModal(true);
   };
+  const [isProcessing, setIsProcessing] = useState(false);
+
   const handlePaymentSuccess = async () => {
     try {
+      setShowPaymentModal(false);
+      setIsProcessing(true); // Show processing modal
+  
       const response = await fetch('http://localhost:8000/api/cart/checkout', {
         method: 'POST',
         headers: {
@@ -226,22 +232,24 @@ const Cart: React.FC<CartProps> = ({ accessToken }) => {
           'Content-Type': 'application/json',
         },
       });
-
+  
       if (!response.ok) {
         throw new Error('Checkout failed');
       }
-
+  
+      const result = await response.json();
+      
       // Clear cart data
       setCartData(null);
-      setShowPaymentModal(false);
+      setIsProcessing(false); // Hide processing modal
       
-      // Show success message and redirect to orders
+      // Show success message and redirect
       alert('Order placed successfully!');
       navigate('/orders');
     } catch (err) {
       console.error('Error during checkout:', err);
       setError('Checkout failed');
-      setShowPaymentModal(false);
+      setIsProcessing(false); // Hide processing modal
     }
   };
 
@@ -428,15 +436,17 @@ const Cart: React.FC<CartProps> = ({ accessToken }) => {
         </button>
       </div>
 
-      {/* Payment Modal */}
-      {showPaymentModal && cartData && (
-        <PaymentModal
-          amount={cartData.discounted_price || cartData.total_price}
-          onClose={() => setShowPaymentModal(false)}
-          onSuccess={handlePaymentSuccess}
-          onError={handlePaymentError}
-        />
-      )}
+{/* Payment Modal */}
+    {showPaymentModal && cartData && (
+      <PaymentModal
+        amount={cartData.discounted_price || cartData.total_price}
+        onClose={() => setShowPaymentModal(false)}
+        onSuccess={handlePaymentSuccess}
+        onError={handlePaymentError}
+      />
+    )}
+    {/* Processing Modal */}
+    {isProcessing && <ProcessingOrderModal />}
     </div>
   );
 }

@@ -9,7 +9,7 @@ from utils.dependencies import get_upload_path, admin_required
 async def get_all_pizzas(db: Session):
     pizzas = db.query(Pizza).all()
     if not pizzas:
-        raise HTTPException(status_code=404, detail="No pizzas found")
+        {"Message" : "Pizza Not Found","data":[]}
     else:
         return pizzas 
 
